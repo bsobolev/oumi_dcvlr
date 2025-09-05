@@ -1,0 +1,39 @@
+# Evaluation config for Qwen2-VL 7B on DCVLR benchmarks.
+#
+# Requirements:
+#   - Log into WandB (`wandb login`) or disable `enable_wandb`
+#   - Install DCVLR evaluation dependencies as described in configs/projects/dcvlr/README.md
+#
+# Usage:
+#   oumi evaluate -c configs/projects/dcvlr/evaluation/eval.yaml
+#
+# See Also:
+#   - Documentation: https://oumi.ai/docs/en/latest/user_guides/evaluate/evaluate.html
+#   - Config class: oumi.core.configs.EvaluationConfig
+#   - Config source: https://github.com/oumi-ai/oumi/blob/main/src/oumi/core/configs/evaluation_config.py
+#   - Other eval configs: configs/**/evaluation/
+
+model:
+  model_name: "Qwen/Qwen2-VL-7B-Instruct"
+  model_max_length: 4096
+  torch_dtype_str: "bfloat16"
+  attn_implementation: "sdpa"
+  trust_remote_code: True
+  shard_for_eval: True
+
+generation:
+  batch_size: 1
+
+# DCVLR baseline benchmarks
+tasks:
+  - evaluation_backend: dcvlr_vlmeval
+    task_name: VMCBench_DEV
+  - evaluation_backend: dcvlr_vlmeval
+    task_name: OlympiadBench
+  - evaluation_backend: dcvlr_vlmeval
+    task_name: LiveXivVQA
+  - evaluation_backend: dcvlr_vlmeval
+    task_name: LiveXivTQA
+
+enable_wandb: True
+inference_engine: NATIVE

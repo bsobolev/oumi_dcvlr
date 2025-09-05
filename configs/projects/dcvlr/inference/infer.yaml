@@ -1,0 +1,24 @@
+# Qwen2-VL 7B inference config for DCVLR benchmarks.
+#
+# Usage:
+#   oumi infer -i -c configs/projects/dcvlr/inference/infer.yaml \
+#     --image /path/to/image.jpg --prompt "<question>"
+#
+# See Also:
+#   - Documentation: https://oumi.ai/docs/en/latest/user_guides/infer/infer.html
+#   - Config class: oumi.core.configs.InferenceConfig
+#   - Config source: https://github.com/oumi-ai/oumi/blob/main/src/oumi/core/configs/inference_config.py
+#   - Other inference configs: configs/**/inference/
+
+model:
+  model_name: "Qwen/Qwen2-VL-7B-Instruct"
+  torch_dtype_str: "bfloat16"
+  model_max_length: 4096
+  chat_template: "qwen2-vl-instruct"
+  trust_remote_code: True
+
+generation:
+  max_new_tokens: 512
+  batch_size: 1
+
+engine: NATIVE
